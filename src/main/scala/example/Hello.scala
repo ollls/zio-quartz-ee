@@ -22,7 +22,8 @@ object UserRecord {
 }
 case class UserRecord(val uid: String )
 
-
+//Please see URL, for more examples/use cases.
+//https://github.com/ollls/zio-tls-http/blob/dev/examples/start/src/main/scala/MyServer.scala
 
 object ServerExample extends zio.App {
 
