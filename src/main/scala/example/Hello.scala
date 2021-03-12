@@ -27,12 +27,16 @@ case class UserRecord(val uid: String )
 
 object ServerExample extends zio.App {
 
+  object param1 extends QueryParam( "param1")
+
   def run(args: List[String]) = {
 
 
     val r =  HttpRoutes.of {
        case GET -> Root / "health" =>
         ZIO(Response.Ok.asTextBody("Health Check Ok"))
+
+       case GET -> Root / "user" :? param1( par ) => ZIO( Response.Ok().asTextBody( "param1=" + par ))
 
        case req @ POST -> Root / "test" =>
          for {
