@@ -34,7 +34,7 @@ object ServerExample extends zio.App {
 
     val r =  HttpRoutes.of {
        case GET -> Root / "health" =>
-        ZIO(Response.Ok.asTextBody("Health Check Ok"))
+        ZIO(Response.Ok().asTextBody("Health Check Ok"))
 
        case GET -> Root / "user" :? param1( par ) => ZIO( Response.Ok().asTextBody( "param1=" + par ))
 
@@ -42,25 +42,20 @@ object ServerExample extends zio.App {
          for {
            rec <- ZIO( req.fromJSON[UserRecord] )
            _   <- MyLogging.info("my_application", "UID received: " + rec.uid )
-         } yield( Response.Ok.asTextBody( "OK " + rec.uid ) )
+         } yield( Response.Ok().asTextBody( "OK " + rec.uid ) )
     }
 
 
 
     type MyEnv = MyLogging
 
-    val myHttp = new TcpServer[MyEnv]
+    val myHttp = new TcpServer[MyEnv]( port= 8080, keepAlive = 2000, serverIP = "0.0.0.0")
 
-    val myHttpRouter = new HttpRouter[MyEnv]
+    val myHttpRouter = new HttpRouter[MyEnv]( r )
     
-    myHttpRouter.addAppRoute( r )
 
-    myHttp.BINDING_SERVER_IP = "0.0.0.0"
-    myHttp.KEEP_ALIVE = 2000
-    myHttp.SERVER_PORT = 8080
-
-
-    val logger_L = MyLogging.make( ("console" -> LogLevel.Trace), 
+    val logger_L = MyLogging.make( maxLogSize = 1024*1024, maxLogFiles = 7,
+                                   ("console" -> LogLevel.Trace), 
                                    ("access" -> LogLevel.Info), 
                                    ( "my_application" -> LogLevel.Info) )
 

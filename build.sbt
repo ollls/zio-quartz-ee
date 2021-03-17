@@ -9,8 +9,13 @@ lazy val root = (project in file("."))
   .settings(
     name := "hello-http",
     libraryDependencies ++= Seq( 
-       "io.github.ollls"  %% "zio-tls-http" % "1.1.0-m2"
+       "io.github.ollls"  %% "zio-tls-http" % "1.1.0-m3"
     )
    )
+
+   scalacOptions ++= Seq(
+  "-Xfatal-warnings",
+  "-deprecation",
+)
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
