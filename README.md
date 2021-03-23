@@ -21,7 +21,10 @@ Web filters on zio-tls-http are comoosable with <>
   
  ## ZIO-Quartz Layers:
   
- ### ResPool ZIO Layer - connection pooling, you will need to provide two functions: create and release. Can be used with any resources, JDBC, etc..
+ ### Resource Pool ZIO Layer - connection pooling, you will need to provide two functions: create and release. Can be used with any resources, JDBC, etc..
+ 
+    
+    object ResPool
    
     def makeM[R](
     timeToLiveMs: Int,
