@@ -26,13 +26,14 @@ Web filters on zio-tls-http are comoosable with <>
     def makeM[R](
     timeToLiveMs: Int,
     createResource: () => ZIO[ZEnv, Exception, R],
-    closeResource: (R) => ZIO[ZEnv, Exception, Unit )
+    closeResource: (R) => ZIO[ZEnv, Exception, Unit)
     (implicit tagged: Tag[R] )
   
-    def make[R](timeToLiveMs: Int, 
+    def make[R](
+    timeToLiveMs: Int, 
     createResource: () => R,
     closeResource: (R) => Unit)
-    ( implicit tagged: Tag[R] )
+    (implicit tagged: Tag[R])
     
     trait Service[R] {
       def acquire: ZIO[zio.ZEnv with MyLogging, Throwable, R]
