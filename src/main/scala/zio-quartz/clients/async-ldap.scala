@@ -1,0 +1,56 @@
+package quartz.clients
+
+import com.unboundid.ldap.sdk.LDAPConnection
+import com.unboundid.util.ssl.SSLUtil
+import com.unboundid.util.ssl.TrustAllTrustManager
+
+import com.unboundid.ldap.sdk.AsyncSearchResultListener
+import com.unboundid.ldap.sdk.AsyncRequestID
+import com.unboundid.ldap.sdk.SearchResult
+import com.unboundid.ldap.sdk.SearchRequest
+import com.unboundid.ldap.sdk.SearchResultEntry
+import com.unboundid.ldap.sdk.SearchResultReference
+import com.unboundid.ldap.sdk.SearchScope
+
+import zio.Chunk
+import zio.IO
+
+class AsyncLDAP( host : String, port : Int, BindDN : String, BindPwd : String ) {
+
+  val HOST    = host
+  val PORT    = port
+  val BIND_DN = BindDN
+  val PWD     = BindPwd
+
+  def ldap_con_ssl() = {
+    val sslUtil          = new SSLUtil(new TrustAllTrustManager());
+    val sslSocketFactory = sslUtil.createSSLSocketFactory();
+    val lc               = new LDAPConnection(sslSocketFactory);
+
+    lc.connect(HOST, PORT)
+    lc.bind(BIND_DN, PWD)
+
+    lc
+  }
+
+  def ldap_con_close(c: LDAPConnection) = { /*println("ldap con close");*/ c.close() }
+
+  def a_search(c: LDAPConnection, baseDN: String, filter: String, attributes : String* ) =
+    IO.effectAsync[Exception, Chunk[SearchResultEntry]](cb => {
+
+      val listener = new AsyncSearchResultListener {
+        var results = Chunk[SearchResultEntry]()
+        /////////////////////////
+        def searchResultReceived(reqId: AsyncRequestID, searchRes: SearchResult) =
+          cb(IO.effectTotal(results))
+        /////////////////////////
+        def searchEntryReturned(searchEntry: SearchResultEntry) =
+          results = results ++ Chunk(searchEntry)
+        ////////////////////////
+        def searchReferenceReturned(searchReference: SearchResultReference) = {}
+      }
+      c.asyncSearch(new SearchRequest(listener, baseDN, SearchScope.SUB, filter, attributes : _* )) 
+
+    })
+
+}
