@@ -90,7 +90,7 @@ object QuartzServer extends zio.App {
   def run(args: List[String]) = {
 
     val LDAP_BASE = "o=company.com"
-    val LDAP_GROUP_BASE = "ou=Groups,o=intuit.com"
+    val LDAP_GROUP_BASE = "ou=Groups,o=company.com"
     val LDAP_BIND_DN = "uid=sysadm1,ou=Apps,o=company.com"
     val LDAP_BIND_PWD = "password"
     val LDAP_HOST = "hostname"
