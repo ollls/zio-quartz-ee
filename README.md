@@ -12,7 +12,7 @@ Enterprise use cases for zio-tls-http server - m5.<br><br>
 * LDAP and HTTPS Connection pooling and caching layers. 
 * LDAP access thru Unbound SDK with async ZIO bindings.
 * Carefully crafted logging for connection pooling/caching to see different Layer of the same class.  For example: ResPool[HttpClient] vs ResPool[LDAPClient] 
-( there are version of conn pool with names, not used in the example )
+( there is a version of conn pool with names, not used in the example )
 
 <i>
 Future plans are to provide OAUTH2 client filter example, connection limiter and fast in-memory data table. 
