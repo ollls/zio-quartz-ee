@@ -1,6 +1,8 @@
 # zio-quartz
 
 Enterprise use cases for zio-tls-http server - m5.<br><br>
+The code assumes that you have access to LDAP compliant directoty to test conn. pooling and cachig.
+If not you, I will be more than happy to post any other examples in our catalog of use cases.
 
 ## Additional dependencies:
 
