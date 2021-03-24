@@ -29,7 +29,7 @@ Web filters on zio-tls-http are comoosable with <>
  ## LRU Locks, semaphore table.
  
  Cache will work with millions of entries with all your CPU cores busy, due to LRU tracking there will be a semaphore sync thru semaphore table, between regular and LRU table.
- Each record locked indivudualy with semaphore key calculated( maped ) from main mem cache table:  
+ Each record locked individually with semaphore key calculated( maped ) from main mem cache table:  
  
     semaphore_key <- ZIO(key.hashCode % 1024)  
     
