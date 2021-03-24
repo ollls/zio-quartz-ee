@@ -4,6 +4,8 @@ Enterprise use cases for zio-tls-http server - m5.<br><br>
 
 ## Additional dependencies:
 
+The project philosophy is to limit the use third party libs, if anything can be done on regular JDK it will be done on JDK.
+
 * ZIO-Magic
 * Ping Unbound LDAP SDK
 
