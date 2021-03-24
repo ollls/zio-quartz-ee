@@ -72,7 +72,8 @@ Web filters on zio-tls-http are comoosable with <>
     val logger_L = MyLogging.make(("console" -> LogLevel.Trace), ("access" -> LogLevel.Info))
     val dummyConPool_L = ResPool.make[Unit](timeToLiveMs = 20 * 1000, () => (), (Unit) => ())
     val cache_L =
-      ResPoolCache.make(timeToLiveMs = 10 * 1000, limit = 4000001, (u: Unit, number: String) => ZIO.succeed( if ( false ) None else Some(number ) ))
+      ResPoolCache.make(timeToLiveMs = 10 * 1000, limit = 4000001, (u: Unit, number: String) 
+                   => ZIO.succeed( if ( false ) None else Some(number ) ))
 
     //all layers visibe
     edgz_Http
