@@ -2,7 +2,8 @@
 
 Enterprise use cases for zio-tls-http server - m5.<br><br>
 The code assumes that you have access to LDAP compliant directoty to test conn. pooling and cachig.
-If not you, I will be more than happy to post any other examples in our catalog of use cases.
+If not, I will be more than happy to post any other examples in our catalog of use cases.
+Also, please see: "Dummy layers with ResPool[Unit] resource to test cache with random number generator".
 
 ## Additional dependencies:
 
@@ -68,7 +69,7 @@ Web filters on zio-tls-http are comoosable with <>
  
  TBD
     
- ### Dummy layers with ResPool[Unit] resource to test cache with random number genertor.
+ ### Dummy layers with ResPool[Unit] resource to test cache with random number generator.
     
     //Layers
     val logger_L = MyLogging.make(("console" -> LogLevel.Trace), ("access" -> LogLevel.Info))
