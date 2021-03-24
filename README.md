@@ -66,7 +66,7 @@ Web filters on zio-tls-http are comoosable with <>
  
  TBD
     
- ### Dummy layers to test cache with random number genertor ( for those who interested )   
+ ### Dummy layers with ResPool[Unit] resource to test cache with random number genertor.
     
     //Layers
     val logger_L = MyLogging.make(("console" -> LogLevel.Trace), ("access" -> LogLevel.Info))
