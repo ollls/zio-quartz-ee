@@ -62,5 +62,25 @@ Web filters on zio-tls-http are comoosable with <>
       def release(res: R): ZIO[ZEnv with MyLogging, Throwable, Unit]
     }
     
-    TBD ...
+ ### Resource Pool Cache ZIO Layer.
+ 
+ TBD
+    
+ ### Dummy layers to test cache with random number genertor ( for those who interested )   
+    
+    //Layers
+    val logger_L = MyLogging.make(("console" -> LogLevel.Trace), ("access" -> LogLevel.Info))
+    val dummyConPool_L = ResPool.make[Unit](timeToLiveMs = 20 * 1000, () => (), (Unit) => ())
+    val cache_L =
+      ResPoolCache.make(timeToLiveMs = 10 * 1000, limit = 4000001, (u: Unit, number: String) => ZIO.succeed( if ( false ) None else Some(number ) ))
+
+    //all layers visibe
+    edgz_Http
+      .run(myHttpRouter.route)
+      .provideSomeLayer[ZEnv with MyLogging with ResPool[Unit]](cache_L)
+      .provideSomeLayer[ZEnv with MyLogging](dummyConPool_L)
+      .provideSomeLayer[ZEnv](logger_L)
+      .exitCode
+  }
+
     
