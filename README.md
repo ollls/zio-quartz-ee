@@ -24,7 +24,8 @@ Web filters on zio-tls-http are comoosable with <>
   
  ## High memory scenarios.
  
- export SBT_OPTS="-Xmx5G" 
+    export SBT_OPTS="-Xmx5G" 
+    
  Very rough estimate 200-500 MB per million of entries. To avoid perf issues please make sure you have enough memory for your cache/caches.
  Cache poisioning with 100% LRU eviction will slow down TPS about 60%. Currently, only one fiber doing evictions. This is not an issue for any real scenario.
  
