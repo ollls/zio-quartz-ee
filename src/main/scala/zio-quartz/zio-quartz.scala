@@ -34,7 +34,7 @@ import quartz.clients._
 import zio.magic._
 import zhttp.Request
 
-object QuartzServer extends zio.App {
+object GEDServer extends zio.App {
 
   def NotNull(s: String): String = if (s == null) "" else s
 
@@ -217,7 +217,7 @@ object QuartzServer extends zio.App {
       timeToLiveMs = 1000,
       () =>
         HttpConnection
-          .connect("https://localhost:8443", "keystore.jks", "password"),
+          .connect("https://localhost:8443", trustKeystore = "keystore.jks", password = "password"),
       _.close
     )
 
@@ -227,9 +227,11 @@ object QuartzServer extends zio.App {
       (c: HttpConnection, uid: String) => {
         for {
           response <- c.send(ClientRequest(GET, s"/service/users/$uid"))
+          obj      <- response.fromJSON[UserInfo2]
+
           res <-
             if (response.code.isSuccess) //will be fixed in m5
-              ZIO.some(response.asObjfromJSON[UserInfo2])
+              ZIO( obj.toOption )
             else ZIO.none
 
         } yield (res)
