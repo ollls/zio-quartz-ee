@@ -7,7 +7,7 @@ ThisBuild / organizationName := "example"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "ged-server",
+    name := "zio-quartz-ee",
     libraryDependencies ++= Seq( 
        "io.github.ollls"  %% "zio-tls-http" % "1.2-m1",
        "io.github.kitlangton" %% "zio-magic" % "0.2.0",
