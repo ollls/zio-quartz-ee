@@ -1,6 +1,6 @@
 # zio-quartz
 
-Enterprise use cases for zio-tls-http server - m5.<br><br>
+Enterprise use cases for zio-tls-http server.<br><br>
 The code assumes that you have access to LDAP compliant directoty to test conn. pooling and cachig.
 If not, just use it as a reference, I will be more than happy to post any other examples in our catalog of use cases.
 Also, please see: "Dummy layers with ResPool[Unit] resource to test cache with random number generator".
