@@ -34,7 +34,7 @@ import quartz.clients._
 import zio.magic._
 import zhttp.Request
 
-object GEDServer extends zio.App {
+object QuartzServer extends zio.App {
 
   def NotNull(s: String): String = if (s == null) "" else s
 
