@@ -19,12 +19,7 @@ import zio.Runtime
 import zio.ZRef
 
 object AsyncLDAP {
-
-  var listener: AsyncSearchResultListener = null
-  var cb: IO[Exception, Option[SearchResultEntry]] => Unit = null
-
   val runtime = Runtime.default
-
 }
 
 class AsyncLDAP(host: String, port: Int, BindDN: String, BindPwd: String) {
